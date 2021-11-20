@@ -39,14 +39,14 @@ def welcome():
     return(
     '''
     Welcome to the Climate Analysis API!
-    Available Routes:
-    /api/v1.0/precipitation
-    /api/v1.0/stations
-    /api/v1.0/tobs
-    /api/v1.0/temp/start/end
+    Available Routes:<br>
+    <a href="/api/v1.0/precipitation">Precipitation</a><br>
+    <a href="/api/v1.0/stations">stations</a><br>
+    <a href="/api/v1.0/tobs">Tobs</a><br>
+    <a href="/api/v1.0/temp/start/end">start/end</a><br>
     ''')
 
-# new route
+# new route PRECIPITATION
 @app.route("/api/v1.0/precipitation")
 def precipitation():
     prev_year = dt.date(2017, 8, 23) - dt.timedelta(days=365)
@@ -54,7 +54,7 @@ def precipitation():
     precip = {date: prcp for date, prcp in precipitation}
     return jsonify(precip)
 
-# new route
+# new route STATIONS
 @app.route("/api/v1.0/stations")
 def stations():
     results = session.query(Station.station).all()
@@ -71,7 +71,7 @@ def temp_monthly():
     temps = list(np.ravel(results))
     return jsonify(temps=temps)
 
-# new route
+# new route TEMP START/END
 @app.route("/api/v1.0/temp/<start>")
 @app.route("/api/v1.0/temp/<start>/<end>")
 def stats(start=None, end=None):
